@@ -1,9 +1,6 @@
 [flake8]
-max-line-lenght = 119
-exclude = 
-venv,
-migrations,
-.git
+max-line-length = 119
+exclude = venv, migrations, .git
 
 
 
