@@ -26,6 +26,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="books")
     categories = models.ManyToManyField(Category, related_name="books", blank=True)
     description = models.TextField(blank=True)
+    isbn = models.CharField(max_length=13, blank=True)
     published_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
