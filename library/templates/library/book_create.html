@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Book{% endblock %}
+
+
+{% block content %}
+<h1>Add New Book</h1>
+
+<form method="post">
+  {% csrf_token %}
+
+  <p>
+    <label>Title:</label><br />
+    <input type="text" name="title" required />
+  </p>
+
+  <p>
+    <label>Author:</label><br />
+    <select name="author_id">
+      {% for author in authors %}
+      <option value="{{ author.pk }}">{{ author.name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+
+  <button type="submit">Save Book</button>
+</form>
+
+<br />
+<a href="{% url 'library:book_list' %}">Cancel</a>
+{% endblock %}

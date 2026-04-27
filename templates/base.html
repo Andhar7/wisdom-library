@@ -7,10 +7,10 @@
   </head>
   <body>
     <nav>
-      <strong> Wisdom Library </strong>
-      <a href="{%url 'library:book_list' %}"> Books </a>
+      <strong>Wisdom Library</strong> |
+      <a href="{% url 'library:book_list' %}">Books</a> |
+      <a href="{% url 'library:book_create' %}">+ Add Book</a>
     </nav>
-
     <hr />
 
     <main>{% block content %} {% endblock %}</main>
