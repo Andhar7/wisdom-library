@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.shortcuts import render
 from .models import Book
 
 # Create your views here.
@@ -6,12 +6,5 @@ from .models import Book
 
 def book_list(request):
     books = Book.objects.select_related("author").all()
-    data = [
-        {
-            "id": book.id,
-            "title": book.title,
-            "author": book.author.name,
-        }
-        for book in books
-    ]
-    return JsonResponse({"books": data})
+
+    return render(request, "library/book_list.html", {"books": books})

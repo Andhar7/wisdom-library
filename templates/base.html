@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Wisdom Library {% endblock %}</title>
+  </head>
+  <body>
+    <nav>
+      <strong> Wisdom Library </strong>
+      <a href="{%url 'library:book_list' %}"> Books </a>
+    </nav>
+
+    <hr />
+
+    <main>{% block content %} {% endblock %}</main>
+
+    <hr />
+
+    <footer>Wisdom Library Build with Django 🙏 ❤️ 🔥 🙏</footer>
+  </body>
+</html>
