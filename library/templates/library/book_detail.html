@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block title %}{{ book.title }}
+
 {% endblock %}
 
+
 {%block content %}
+
 <h1>{{ book.title }}</h1>
 <p><strong>Author:</strong> {{ book.author.name }}</p>
 <p><strong>ISBN:</strong> {{ book.isbn }}</p>
@@ -11,11 +14,16 @@
 {% if book.categories.all %}
 <p>
   <strong>Categories:</strong>
-  {% for category in book.categories.all %} {{ category.name }} {% if not
-  forloop.last %}, {% endif %} {% endfor %}
+  {% for category in book.categories.all %}
+  {{ category.name }}
+  {% if not forloop.last %},
+  {% endif %}
+  {% endfor %}
 </p>
+
 {% endif %}
 
 <br />
 <a href="{% url 'library:book_list' %}">Back to all books</a>
+
 {% endblock %}
