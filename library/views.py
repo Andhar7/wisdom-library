@@ -13,7 +13,7 @@ def book_list(request):
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
 
-    return render(request, "library/book_list.html", {"book": book})
+    return render(request, "library/book_detail.html", {"book": book})
 
 
 def book_create(request):
@@ -29,3 +29,32 @@ def book_create(request):
     authors = Author.objects.all()
 
     return render(request, "library/book_create.html", {"authors": authors})
+
+
+def book_update(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    if request.method == "POST":
+        book.title = request.POST["title"]
+        author_id = request.POST["author_id"]
+        book.author = get_object_or_404(Author, pk=author_id)
+
+        book.save()
+
+        return redirect("library:book_detail", pk=book.pk)
+
+    authors = Author.objects.all()
+
+    return render(
+        request, "library/book_update.html", {"book": book, "authors": authors}
+    )
+
+
+def book_delete(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    if request.method == "POST":
+        book.delete()
+        return redirect("library:book_list")
+
+    return render(request, "library/book_delete.html", {"book": book})
