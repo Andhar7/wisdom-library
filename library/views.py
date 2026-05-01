@@ -1,5 +1,6 @@
+from .forms import BookForm
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Author, Book
+from .models import Book
 
 # Create your views here.
 
@@ -17,37 +18,26 @@ def book_detail(request, pk):
 
 
 def book_create(request):
-    if request.method == "POST":
-        title = request.POST["title"]
-        author_id = request.POST["author_id"]
-        author = get_object_or_404(Author, pk=author_id)
+    form = BookForm(request.POST or None)
 
-        Book.objects.create(title=title, author=author)
+    if form.is_valid():
+        form.save()
 
         return redirect("library:book_list")
 
-    authors = Author.objects.all()
-
-    return render(request, "library/book_create.html", {"authors": authors})
+    return render(request, "library/book_create.html", {"form": form})
 
 
 def book_update(request, pk):
     book = get_object_or_404(Book, pk=pk)
+    form = BookForm(request.POST or None, instance=book)
 
-    if request.method == "POST":
-        book.title = request.POST["title"]
-        author_id = request.POST["author_id"]
-        book.author = get_object_or_404(Author, pk=author_id)
-
-        book.save()
+    if form.is_valid():
+        form.save()
 
         return redirect("library:book_detail", pk=book.pk)
 
-    authors = Author.objects.all()
-
-    return render(
-        request, "library/book_update.html", {"book": book, "authors": authors}
-    )
+    return render(request, "library/book_update.html", {"form": form, "book": book})
 
 
 def book_delete(request, pk):
